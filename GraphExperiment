@@ -1,0 +1,46 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.NoSuchElementException;
+import java.util.PriorityQueue;
+import java.util.StringTokenizer;
+
+public class GraphExperiment {
+    public static void main(String[] args) {
+        if (args.length == 0) {
+            System.err.println("Usage: java GraphExperiment <file>");
+            System.exit(1);
+        }
+        String fileName = args[0];
+        Graph graph = new Graph();
+        try {
+            BufferedReader in = new BufferedReader(new FileReader(fileName));
+            String line = in.readLine();
+            StringTokenizer st = new StringTokenizer(line);
+            int v = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            for (int i = 0; i < e; i++) {
+                line = in.readLine();
+                st = new StringTokenizer(line);
+                String source = st.nextToken();
+                String dest = st.nextToken();
+                double cost = Double.parseDouble(st.nextToken());
+                graph.addEdge(source, dest, cost);
+            }
+            in.close();
+            graph.dijkstra("1");
+            System.out.println("v: " + v);
+            System.out.println("e: " + e);
+            System.out.println("Vertex operation count: " + graph.opcount_v);
+            System.out.println("Edge operation count: " + graph.opcount_e);
+            System.out.println("Priority queue operation count: " + graph.opcount_pq);
+            System.out.println("Priority queue: " + graph.pqToString());
+        } catch (IOException e) {
+            System.err.println(e);
+            System.exit(1);
+        }
+    }
+}
+

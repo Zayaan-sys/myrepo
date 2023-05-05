@@ -1,0 +1,16 @@
+private static void writeGraphToFile(Graph graph, String filename) {
+    try {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+        for (Vertex v : graph.getVertices()) {
+            writer.write(v.name + ": ");
+            for (Edge e : v.adj) {
+                writer.write(e.dest.name + "(" + e.cost + ") ");
+            }
+            writer.newLine();
+        }
+        writer.close();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
