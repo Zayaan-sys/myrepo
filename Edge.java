@@ -9,5 +9,6 @@ class Edge
     {
         dest = d;
         cost = c;
+        //this is the info
     }
 }
